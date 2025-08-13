@@ -19,8 +19,7 @@ services:
     network_mode: default
     user: "0"
     ports:
-      - "3200:3200"
-      - "3280:80"
+      - "3200:80"
     volumes:
       - ./promtail-data:/data
       - ./promtail-config.yaml:/etc/promtail/config.yaml
