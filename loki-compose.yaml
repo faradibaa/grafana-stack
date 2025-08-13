@@ -5,6 +5,7 @@ services:
     container_name: loki
     restart: unless-stopped
     network_mode: default
+    user: "0"
     ports:
       - "3100:3100"
     volumes:
@@ -16,19 +17,21 @@ services:
     container_name: promtail
     restart: unless-stopped
     network_mode: default
+    user: "0"
     ports:
       - "3200:3200"
     volumes:
       - ./promtail-data:/data
       - ./promtail-config.yaml:/etc/promtail/config.yaml
       - ./positions.yaml:/var/log/positions.yaml
-    command: -config.file=/etc/promtail/config.yaml -server.http-listen-port=3200
+    command: -config.file=/etc/promtail/config.yaml
 
   grafana:
     image: grafana/grafana:10.4.19
     container_name: grafana
     restart: unless-stopped
     network_mode: default
+    user: "0"
     ports:
       - "3000:3000"
     volumes:
