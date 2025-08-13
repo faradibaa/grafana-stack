@@ -20,10 +20,12 @@ services:
     user: "0"
     ports:
       - "3200:3200"
+      - "3280:80"
     volumes:
       - ./promtail-data:/data
       - ./promtail-config.yaml:/etc/promtail/config.yaml
       - ./positions.yaml:/var/log/positions.yaml
+      - /var/log/syslog:/var/log/syslog:ro
     command: -config.file=/etc/promtail/config.yaml
 
   grafana:
