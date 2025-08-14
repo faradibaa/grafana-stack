@@ -6,7 +6,8 @@ positions:
   filename: /var/log/positions.yaml
 
 scrape_configs:
-  - job_name: dummy_log
+
+  - job_name: dummy_syslog
     static_configs:
       - targets:
           - localhost
@@ -15,4 +16,8 @@ scrape_configs:
           __path__: /var/log/syslog
     pipeline_stages:
       - regex:
-          expression: "(?P<log_type>kernel|systemd) (?P<content>.*)$"
+          expression: "^(?P<time>[A-Z][a-z]{2} \\d{2} \\d{2}:\\d{2}:\\d{2}) (?P<hostname>\\S+) (?P<system>.+?): (?P<message>.*)"
+      - labels:
+          time:
+          hostname:
+          system:
